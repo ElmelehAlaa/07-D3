@@ -7,7 +7,7 @@ fetch("https://striveschool-api.herokuapp.com/books")
   .then((ciao) => {
     console.log(ciao);
 
-    const row = document.querySelector(".row");
+    const row = document.querySelector("#rowBooks");
     console.log(row);
     let col;
     ciao.forEach((books) => {
@@ -22,18 +22,30 @@ fetch("https://striveschool-api.herokuapp.com/books")
           <p class="card-text">
             ${books.price}$
           </p>
-          <button class="btn btn-primary">scarta</button>
+          <button class="btn btn-secondary">Scarta</button>
+          <button class="btn btn-primary">Compra ora</button>
         </div>
         </div>`;
     });
-    const scartaBtn = document.querySelectorAll(".btn-primary");
-    scartaBtn.forEach((btnSingle) => {
+    const scartaBtn = document.querySelectorAll(".btn-secondary");
+    scartaBtn.forEach((scartaSingle) => {
       const allCol = document.querySelectorAll(".col-3");
       allCol.forEach((oneCol) =>
-        btnSingle.addEventListener("click", function (e) {
+        scartaSingle.addEventListener("click", function (e) {
           e.currentTarget.closest(".card").style.display = "none";
         })
       );
     });
+    const compraBtn = document.querySelectorAll(".btn-primary");
+    compraBtn.forEach((compraSingle) =>
+      compraSingle.addEventListener("click", function (e) {
+        const carrello = e.currentTarget.closest(".card");
+        console.log(carrello);
+        const carrelloRow = document.querySelector("#carrelloRow");
+        carrelloRow.appendChild(carrello);
+        carrello.className = "col-2";
+        compraSingle.style.display = "none";
+      })
+    );
   })
   .catch((error) => console.log(error));
